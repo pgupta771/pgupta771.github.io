@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Priyanshu Gupta — Distributed Systems & OBSCURA Creative Direction</title>
+  <meta name="description" content="Priyanshu Gupta — Software Engineer (Java 21, Distributed Data Systems, Apache Kafka, PostgreSQL, Google Cloud BigQuery DTS) & Founder of OBSCURA." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-void: #060608;
+      --bg-panel: #0c0c10;
+      --bg-elevated: #111118;
+      --border-dim: rgba(236, 232, 225, 0.08);
+      --border-crimson: rgba(217, 27, 43, 0.45);
+      --text-bone: #ece8e1;
+      --text-muted: #949089;
+      --text-dim: #5c5954;
+      --crimson: #d91b2b;
+      --crimson-bright: #ff2a3c;
+      --crimson-deep: #5e0811;
+      --emerald: #10b981;
+      --amber: #f59e0b;
+      --font-display: 'Syne', sans-serif;
+      --font-myth: 'Cinzel', serif;
+      --font-sans: 'Plus Jakarta Sans', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg-void);
+      color: var(--text-bone);
+      font-family: var(--font-sans);
+    }
+
+    body {
+      background-color: var(--bg-void);
+      background-image:
+        radial-gradient(circle at 85% 12%, rgba(217, 27, 43, 0.11), transparent 38%),
+        radial-gradient(circle at 12% 78%, rgba(138, 15, 26, 0.09), transparent 42%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 56px 56px, 56px 56px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Top Telemetry & Navigation Bar */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(14px);
+      background: rgba(6, 6, 8, 0.86);
+      border-bottom: 1px solid var(--border-dim);
+      padding: 0.85rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .brand-mark {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--crimson-bright);
+      box-shadow: 0 0 12px var(--crimson-bright);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.45; transform: scale(0.85); }
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      color: var(--text-muted);
+    }
+
+    .nav-links a:hover {
+      color: var(--crimson-bright);
+    }
+
+    .nav-links .obscura-pill {
+      color: var(--text-bone);
+      border: 1px solid var(--border-crimson);
+      background: rgba(217, 27, 43, 0.12);
+      padding: 0.25rem 0.7rem;
+      border-radius: 2px;
+      font-family: var(--font-myth);
+      letter-spacing: 0.14em;
+    }
+
+    .container {
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 0 1.75rem;
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 5.5rem 0 4rem;
+      border-bottom: 1px solid var(--border-dim);
+    }
+
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--crimson-bright);
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5.6vw, 4.7rem);
+      font-weight: 800;
+      line-height: 1.04;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-title .serif-accent {
+      font-family: var(--font-myth);
+      font-weight: 700;
+      color: var(--crimson-bright);
+    }
+
+    .hero-sub {
+      max-width: 780px;
+      font-size: 1.08rem;
+      color: var(--text-muted);
+      margin-bottom: 2.2rem;
+    }
+
+    .hero-sub strong {
+      color: var(--text-bone);
+      font-weight: 600;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      margin-bottom: 3.2rem;
+    }
+
+    .btn {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.85rem 1.35rem;
+      border: 1px solid var(--border-dim);
+      background: var(--bg-panel);
+      color: var(--text-bone);
+      cursor: pointer;
+      transition: all 0.18s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+    }
+
+    .btn:hover {
+      border-color: var(--crimson-bright);
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background: var(--crimson);
+      border-color: var(--crimson-bright);
+      color: #fff;
+      font-weight: 600;
+      box-shadow: 0 0 28px rgba(217, 27, 43, 0.28);
+    }
+
+    .btn-primary:hover {
+      background: var(--crimson-bright);
+    }
+
+    /* Telemetry Strip */
+    .telemetry-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      border: 1px solid var(--border-dim);
+      background: rgba(12, 12, 16, 0.9);
+    }
+
+    .telemetry-cell {
+      padding: 1.25rem 1.4rem;
+      border-right: 1px solid var(--border-dim);
+      border-bottom: 1px solid var(--border-dim);
+    }
+
+    .telemetry-cell:last-child {
+      border-right: none;
+    }
+
+    .telemetry-val {
+      font-family: var(--font-mono);
+      font-size: 1.65rem;
+      font-weight: 600;
+      color: var(--text-bone);
+    }
+
+    .telemetry-val span {
+      color: var(--crimson-bright);
+      font-size: 1rem;
+    }
+
+    .telemetry-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-top: 0.25rem;
+    }
+
+    /* Section Headers */
+    section {
+      padding: 4.5rem 0;
+      border-bottom: 1px solid var(--border-dim);
+    }
+
+    .sec-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .sec-index {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--crimson-bright);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+
+    .sec-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 3vw, 2.4rem);
+      font-weight: 700;
+    }
+
+    /* Interactive Simulators */
+    .lab-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    @media (max-width: 940px) {
+      .lab-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .lab-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-dim);
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .lab-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--crimson), transparent);
+    }
+
+    .lab-badge-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+    }
+
+    .badge-green {
+      color: var(--emerald);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      background: rgba(16, 185, 129, 0.08);
+      padding: 0.18rem 0.55rem;
+    }
+
+    .lab-title {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      margin-bottom: 0.45rem;
+    }
+
+    .lab-desc {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .sim-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .sim-btn {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      padding: 0.48rem 0.8rem;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-dim);
+      color: var(--text-bone);
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .sim-btn.active, .sim-btn:hover {
+      border-color: var(--crimson-bright);
+      background: rgba(217, 27, 43, 0.16);
+      color: #fff;
+    }
+
+    .sim-console {
+      background: #050507;
+      border: 1px solid var(--border-dim);
+      padding: 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      min-height: 170px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .bar-row {
+      margin: 0.45rem 0;
+    }
+
+    .bar-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.25rem;
+      color: var(--text-muted);
+    }
+
+    .bar-track {
+      height: 8px;
+      background: #14141c;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      background: var(--crimson-bright);
+      transition: width 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .bar-fill.emerald {
+      background: var(--emerald);
+    }
+
+    .log-line {
+      color: #b8b4ac;
+      margin-top: 0.65rem;
+      padding-top: 0.65rem;
+      border-top: 1px dashed rgba(255,255,255,0.08);
+      line-height: 1.45;
+    }
+
+    /* Project Matrix (All 5 Projects) */
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .proj-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-dim);
+      padding: 1.5rem;
+      transition: border-color 0.2s ease;
+    }
+
+    .proj-card:hover {
+      border-color: var(--border-crimson);
+    }
+
+    .proj-meta {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--crimson-bright);
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+
+    .proj-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.18rem;
+      margin-bottom: 0.55rem;
+    }
+
+    .proj-card p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .tag {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      padding: 0.2rem 0.5rem;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-dim);
+      color: var(--text-bone);
+    }
+
+    /* Experience Timeline */
+    .exp-box {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-dim);
+      padding: 2rem;
+    }
+
+    .exp-top {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-dim);
+    }
+
+    .exp-list {
+      list-style: none;
+      display: grid;
+      gap: 0.85rem;
+    }
+
+    .exp-list li {
+      position: relative;
+      padding-left: 1.4rem;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .exp-list li::before {
+      content: "▸";
+      position: absolute;
+      left: 0;
+      color: var(--crimson-bright);
+    }
+
+    .exp-list li strong {
+      color: var(--text-bone);
+    }
+
+    /* Future Engineering Thesis */
+    .thesis-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .thesis-card {
+      background: linear-gradient(180deg, rgba(17,17,24,0.9), rgba(10,10,14,0.95));
+      border: 1px solid var(--border-dim);
+      padding: 1.6rem;
+    }
+
+    .thesis-num {
+      font-family: var(--font-myth);
+      font-size: 1.5rem;
+      color: var(--crimson-bright);
+      margin-bottom: 0.5rem;
+    }
+
+    /* OBSCURA Mythological Dark Section */
+    .obscura-realm {
+      position: relative;
+      background:
+        radial-gradient(circle at 50% 20%, rgba(217, 27, 43, 0.22), transparent 60%),
+        linear-gradient(180deg, #090507 0%, #050507 100%);
+      border-top: 1px solid var(--border-crimson);
+      border-bottom: 1px solid var(--border-crimson);
+      padding: 5.5rem 0;
+    }
+
+    .obscura-header {
+      text-align: center;
+      max-width: 760px;
+      margin: 0 auto 3.5rem;
+    }
+
+    .obscura-sigil {
+      font-family: var(--font-myth);
+      font-size: 0.8rem;
+      letter-spacing: 0.35em;
+      color: var(--crimson-bright);
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+
+    .obscura-title {
+      font-family: var(--font-myth);
+      font-size: clamp(2.6rem, 6vw, 4.5rem);
+      letter-spacing: 0.18em;
+      font-weight: 800;
+      color: var(--text-bone);
+      text-shadow: 0 0 40px rgba(217, 27, 43, 0.45);
+      margin-bottom: 1rem;
+    }
+
+    .obscura-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .obscura-card {
+      background: rgba(14, 8, 10, 0.82);
+      border: 1px solid rgba(217, 27, 43, 0.3);
+      padding: 1.85rem;
+    }
+
+    .obscura-card h4 {
+      font-family: var(--font-myth);
+      letter-spacing: 0.08em;
+      font-size: 1.15rem;
+      color: #fff;
+      margin-bottom: 0.65rem;
+    }
+
+    .obscura-card p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    footer {
+      padding: 3rem 0;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Telemetry & Realm Bar -->
+  <header class="topbar">
+    <div class="brand-mark">
+      <span class="status-dot"></span>
+      <span>PRIYANSHU.GUPTA // SYS-ARCH &amp; DESIGN</span>
+    </div>
+    <nav class="nav-links">
+      <a href="#labs">01 // INTERACTIVE LABS</a>
+      <a href="#experience">02 // PRODUCTION</a>
+      <a href="#projects">03 // SYSTEMS ARCHIVE</a>
+      <a href="#thesis">04 // R&amp;D THESIS</a>
+      <a href="#obscura" class="obscura-pill">05 // OBSCURA ATELIER</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="eyebrow">NOIDA, INDIA · OPEN TO RELOCATION (INDIA &amp; INTERNATIONAL EU/UK)</div>
+      <h1 class="hero-title">
+        Engineering <span class="serif-accent">Zero-Drift</span> Distributed Backends &amp; Mythological Design Systems.
+      </h1>
+      <p class="hero-sub">
+        I’m <strong>Priyanshu Gupta</strong> — Associate Software Engineer at <strong>CloudSufi</strong> (building enterprise <strong>Google Cloud BigQuery Data Transfer</strong> connectors in Java 17/21) and creator of <strong>OBSCURA</strong>. I architect high-concurrency financial ledgers, bounded-heap streaming data pipelines, and dark editorial design languages from raw primitives.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://github.com/pgupta771" target="_blank" rel="noopener">GITHUB // @PGUPTA771 ↗</a>
+        <a class="btn" href="https://github.com/pgupta771/ledger-core" target="_blank" rel="noopener">LEDGER-CORE REPO ↗</a>
+        <a class="btn" href="https://github.com/pgupta771/ingest-pipeline" target="_blank" rel="noopener">INGEST-PIPELINE REPO ↗</a>
+        <a class="btn" href="https://www.linkedin.com/in/priyanshu-gupta-0942a624a" target="_blank" rel="noopener">LINKEDIN ↗</a>
+        <a class="btn" href="mailto:priyanshugupta771@gmail.com">PRIYANSHUGUPTA771@GMAIL.COM</a>
+      </div>
+
+      <div class="telemetry-grid">
+        <div class="telemetry-cell">
+          <div class="telemetry-val">560,028 <span>rec/s</span></div>
+          <div class="telemetry-label">StAX XML Stream inside 64MB JVM Ceiling (27MB Peak)</div>
+        </div>
+        <div class="telemetry-cell">
+          <div class="telemetry-val">211 <span>vs 29 tx/s</span></div>
+          <div class="telemetry-label">UUID Pessimistic Locking vs SERIALIZABLE (Hot Account)</div>
+        </div>
+        <div class="telemetry-cell">
+          <div class="telemetry-val">20,000 <span>tx</span></div>
+          <div class="telemetry-label">100-Thread Concurrency Proof · 0 Deadlocks · Exact Minor Units</div>
+        </div>
+        <div class="telemetry-cell">
+          <div class="telemetry-val">46+ <span>Tables</span></div>
+          <div class="telemetry-label">Hybrid SOAP + REST BigQuery Data Transfer Connector</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 01 // Interactive Systems Labs -->
+    <section id="labs">
+      <div class="sec-header">
+        <div>
+          <div class="sec-index">01 // INTERACTIVE TELEMETRY SIMULATORS</div>
+          <h2 class="sec-title">Inspect the Invariants Live in Your Browser</h2>
+        </div>
+      </div>
+
+      <div class="lab-grid">
+        <!-- Simulator 1: LedgerCore -->
+        <div class="lab-card">
+          <div>
+            <div class="lab-badge-row">
+              <span>REPO: PGUPTA771/LEDGER-CORE</span>
+              <span class="badge-green">CI: PASSING · JACOCO &gt; 85%</span>
+            </div>
+            <h3 class="lab-title">LedgerCore — Lock Contention &amp; Outbox Simulator</h3>
+            <p class="lab-desc">
+              Compare how canonical ascending-UUID <code>SELECT ... FOR UPDATE</code> eliminates <code>SQLSTATE 40001</code> serialization retry storms under 32-thread hot-account contention (1 hub + 19 spoke accounts).
+            </p>
+            <div class="sim-controls">
+              <button class="sim-btn active" onclick="runLedgerSim('pessimistic', this)">PESSIMISTIC (UUID ORDER)</button>
+              <button class="sim-btn" onclick="runLedgerSim('serializable', this)">SERIALIZABLE (SSI RETRY)</button>
+              <button class="sim-btn" onclick="runLedgerSim('storm', this)">50-THREAD IDEMPOTENCY STORM</button>
+            </div>
+          </div>
+
+          <div class="sim-console" id="ledger-console">
+            <div>
+              <div class="bar-row">
+                <div class="bar-label"><span>COMMITTED THROUGHPUT</span><span id="l-tps">211 tx/s (9,462 ms)</span></div>
+                <div class="bar-track"><div class="bar-fill emerald" id="l-tps-bar" style="width: 88%"></div></div>
+              </div>
+              <div class="bar-row">
+                <div class="bar-label"><span>LOCK / SERIALIZATION RETRIES</span><span id="l-retries">0 retries (0 deadlocks)</span></div>
+                <div class="bar-track"><div class="bar-fill" id="l-retry-bar" style="width: 2%"></div></div>
+              </div>
+            </div>
+            <div class="log-line" id="l-log">
+              [SQL] SELECT id, balance_minor FROM accounts WHERE id IN ($lowUuid, $highUuid) ORDER BY id ASC FOR UPDATE;<br/>
+              [TRIGGER] trg_entries_balanced (DEFERRABLE INITIALLY DEFERRED): SUM(amount_minor) == 0 ✔
+            </div>
+          </div>
+        </div>
+
+        <!-- Simulator 2: IngestPipeline -->
+        <div class="lab-card">
+          <div>
+            <div class="lab-badge-row">
+              <span>REPO: PGUPTA771/INGEST-PIPELINE</span>
+              <span class="badge-green">CI: PASSING · -Xmx64m VERIFIED</span>
+            </div>
+            <h3 class="lab-title">IngestPipeline — 64MB Heap &amp; Crash-Recovery Lab</h3>
+            <p class="lab-desc">
+              Simulate streaming a 155 MB (3.2M-record) synthetic ECB XML feed under a hard <code>-Xmx64m</code> JVM heap limit, or inject a mid-sync crash between Kafka ack and PostgreSQL checkpoint commit.
+            </p>
+            <div class="sim-controls">
+              <button class="sim-btn active" onclick="runIngestSim('stax', this)">155MB STAX STREAM (-Xmx64m)</button>
+              <button class="sim-btn" onclick="runIngestSim('crash', this)">INJECT MID-SYNC CRASH (M3)</button>
+              <button class="sim-btn" onclick="runIngestSim('batch', this)">JDBC BATCH 5,000 UPSERT</button>
+            </div>
+          </div>
+
+          <div class="sim-console" id="ingest-console">
+            <div>
+              <div class="bar-row">
+                <div class="bar-label"><span>SAMPLED JVM HEAP CEILING (-Xmx64m)</span><span id="i-heap">27 MB / 64 MB Peak</span></div>
+                <div class="bar-track"><div class="bar-fill emerald" id="i-heap-bar" style="width: 42%"></div></div>
+              </div>
+              <div class="bar-row">
+                <div class="bar-label"><span>EXTRACTION / SINK THROUGHPUT</span><span id="i-tps">560,028 records/sec</span></div>
+                <div class="bar-track"><div class="bar-fill" id="i-tps-bar" style="width: 94%"></div></div>
+              </div>
+            </div>
+            <div class="log-line" id="i-log">
+              [StAX] XMLStreamReader cursor streaming 3,200,000 Cube nodes (O(1) lookahead buffer).<br/>
+              [SINK] ON CONFLICT (pk) DO UPDATE WHERE target.source_hash IS DISTINCT FROM EXCLUDED.source_hash ✔
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 // Production Experience -->
+    <section id="experience">
+      <div class="sec-header">
+        <div>
+          <div class="sec-index">02 // PRODUCTION ENGINEERING</div>
+          <h2 class="sec-title">Enterprise Data Infrastructure</h2>
+        </div>
+      </div>
+
+      <div class="exp-box">
+        <div class="exp-top">
+          <div>
+            <h3 style="font-family: var(--font-display); font-size: 1.35rem;">CloudSufi — Associate Software Engineer</h3>
+            <div style="color: var(--crimson-bright); font-family: var(--font-mono); font-size: 0.78rem;">Google Cloud · BigQuery Data Transfer Service (DTS) Connectors</div>
+          </div>
+          <div style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted);">JAN 2026 — PRESENT · NOIDA, INDIA</div>
+        </div>
+        <ul class="exp-list">
+          <li>Engineered a hybrid (<strong>SOAP + REST</strong>) <strong>Salesforce Marketing Cloud Connector</strong> in <strong>Java 17</strong> for Google Cloud BigQuery DTS, automating metadata discovery and dynamic schema resolution across <strong>46+ tables</strong> and runtime Custom Data Extensions.</li>
+          <li>Architected distributed query partitioning and stateful paginated stream extraction with <strong>adaptive 30-day date splitting</strong>, <strong>parent-child ID fan-out</strong>, and resumable <strong>SOAP/REST cursor checkpointing</strong>.</li>
+          <li>Developed zero-buffering <strong>O(1)-memory StAX XML</strong> and <strong>Gson/Protobuf</strong> record normalizers, resolved a concurrent <strong>OAuth 2.0 token cache race condition</strong>, and authored <strong>365+ JUnit 5, Mockito &amp; WireMock tests</strong> (<strong>95%+ coverage</strong>).</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 03 // 5-Project Archive -->
+    <section id="projects">
+      <div class="sec-header">
+        <div>
+          <div class="sec-index">03 // COMPLETE ENGINEERING ARCHIVE</div>
+          <h2 class="sec-title">Five Systems Across Five Core Pillars</h2>
+        </div>
+      </div>
+
+      <div class="project-grid">
+        <a class="proj-card" href="https://github.com/pgupta771/ledger-core" target="_blank" rel="noopener">
+          <div class="proj-meta">01 // FINTECH &amp; TRANSACTIONAL CORRECTNESS</div>
+          <h3>LedgerCore — Double-Entry Payments Ledger</h3>
+          <p>Append-only financial ledger in ISO 4217 integer minor units with PostgreSQL deferred zero-sum constraint triggers, SHA-256 idempotency state machine, SKIP LOCKED transactional outbox, and Kafka balance projector.</p>
+          <div class="tag-row">
+            <span class="tag">Java 21</span><span class="tag">Spring Boot 3.3</span><span class="tag">PostgreSQL 16</span><span class="tag">Kafka</span><span class="tag">jqwik</span>
+          </div>
+        </a>
+
+        <a class="proj-card" href="https://github.com/pgupta771/ingest-pipeline" target="_blank" rel="noopener">
+          <div class="proj-meta">02 // STREAMING DATA ENGINEERING</div>
+          <h3>IngestPipeline — Resumable Data Ingestion Engine</h3>
+          <p>Pluggable SourceConnector SPI streaming paginated REST JSON (RDW) and 155 MB StAX XML feeds (ECB) through Kafka into PostgreSQL in a single transaction with online schema-drift evolution.</p>
+          <div class="tag-row">
+            <span class="tag">Java 21</span><span class="tag">StAX XML</span><span class="tag">Kafka</span><span class="tag">Resilience4j</span><span class="tag">Testcontainers</span>
+          </div>
+        </a>
+
+        <a class="proj-card" href="https://github.com/pgupta771/Multithreaded-Java-Web-Server" target="_blank" rel="noopener">
+          <div class="proj-meta">03 // NETWORKING &amp; CONCURRENCY INTERNALS</div>
+          <h3>DevSync — Multithreaded TCP Web Server</h3>
+          <p>Custom HTTP/TCP web server built from raw Java ServerSocket primitives with ExecutorService worker pools, token-based auth, JMeter benchmarking, and live Chart.js telemetry.</p>
+          <div class="tag-row">
+            <span class="tag">Core Java</span><span class="tag">TCP Sockets</span><span class="tag">Thread Pools</span><span class="tag">JMeter</span>
+          </div>
+        </a>
+
+        <a class="proj-card" href="https://github.com/pgupta771/Devlang-backend" target="_blank" rel="noopener">
+          <div class="proj-meta">04 // COMPILERS &amp; LANGUAGE DESIGN</div>
+          <h3>DevLang — Custom Language &amp; AST Interpreter</h3>
+          <p>Handwritten lexical scanner, recursive-descent AST parser, and tree-walk interpreter supporting lexical scopes, closures, and loops, backed by a Dockerized Spring Boot + Monaco IDE playground.</p>
+          <div class="tag-row">
+            <span class="tag">Java</span><span class="tag">Recursive Descent AST</span><span class="tag">Spring Boot</span><span class="tag">React / Monaco</span>
+          </div>
+        </a>
+
+        <div class="proj-card">
+          <div class="proj-meta">05 // ENTERPRISE WORKFLOW ARCHITECTURE</div>
+          <h3>TMS — Ticket Management &amp; SLA Engine</h3>
+          <p>Role-based issue lifecycle and SLA state-transition backend supporting multi-role RBAC (Customer, Agent, Admin), audit trails, and paginated multi-criteria filtering.</p>
+          <div class="tag-row">
+            <span class="tag">Java</span><span class="tag">Spring Security</span><span class="tag">RBAC</span><span class="tag">REST APIs</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 // Future Research & Engineering Goals -->
+    <section id="thesis">
+      <div class="sec-header">
+        <div>
+          <div class="sec-index">04 // FORWARD-LOOKING R&amp;D THESIS</div>
+          <h2 class="sec-title">What I Am Exploring &amp; Building Next</h2>
+        </div>
+      </div>
+
+      <div class="thesis-grid">
+        <div class="thesis-card">
+          <div class="thesis-num">I.</div>
+          <h3 style="font-family: var(--font-display); margin-bottom: 0.5rem;">Deterministic Simulation Testing (DST)</h3>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">
+            Inspired by TigerBeetle and FoundationDB: replacing wall-clock and network nondeterminism with seeded fault-injection schedulers to prove distributed ledger invariants under simulated disk stalls and packet drops.
+          </p>
+        </div>
+        <div class="thesis-card">
+          <div class="thesis-num">II.</div>
+          <h3 style="font-family: var(--font-display); margin-bottom: 0.5rem;">JDK 21+ Foreign Memory &amp; Zero-Copy Ingestion</h3>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">
+            Combining Project Loom Virtual Threads with JDK 21 Foreign Function &amp; Memory (`Arena` / `MemorySegment`) to parse multi-gigabyte wire payloads off-heap with near-zero garbage collection pauses.
+          </p>
+        </div>
+        <div class="thesis-card">
+          <div class="thesis-num">III.</div>
+          <h3 style="font-family: var(--font-display); margin-bottom: 0.5rem;">Sub-Account Sharding &amp; WAL Logical Decoding</h3>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">
+            Scaling hot settlement accounts via $N$-way striped sub-account shards (`transfer_id` hashing) and replacing SQL outbox polling with PostgreSQL `pgoutput` WAL streaming.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 05 // OBSCURA — Mythological Dark Creative Direction -->
+  <section id="obscura" class="obscura-realm">
+    <div class="container">
+      <div class="obscura-header">
+        <div class="obscura-sigil">BEYOND CODE // CREATIVE DIRECTION &amp; BRAND ARCHITECTURE</div>
+        <h2 class="obscura-title">OBSCURA</h2>
+        <p style="color: var(--text-muted); font-size: 1rem;">
+          Alongside distributed backend engineering, I am building <strong style="color: var(--text-bone);">OBSCURA</strong> from the ground up — an independent label rooted in mythological darkness, crimson-on-obsidian visual tension, and heavyweight garment architecture.
+        </p>
+      </div>
+
+      <div class="obscura-grid">
+        <div class="obscura-card">
+          <h4>01 // MYTHOLOGICAL DARKNESS</h4>
+          <p>
+            Drawing from ancient mythologies, eclipse iconography, and brutalist engraving — translating timeless archetypes of shadow, fate, and resilience into modern visual narratives.
+          </p>
+        </div>
+        <div class="obscura-card">
+          <h4>02 // STRUCTURAL SILHOUETTE</h4>
+          <p>
+            Great clothing and great software share the same first principle: structure under tension. Every drop is designed from scratch—from custom typography and crimson graphic compositions to high-GSM proportions.
+          </p>
+        </div>
+        <div class="obscura-card">
+          <h4>03 // THE BUILDER'S DUALITY</h4>
+          <p>
+            Engineering teaches mathematical rigor and zero-defect execution; design teaches taste, restraint, and emotional resonance. OBSCURA is where both disciplines converge.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="container">
+    <div>© 2026 PRIYANSHU GUPTA · BUILT WITH ZERO TEMPLATES</div>
+    <div>
+      <a href="https://github.com/pgupta771" target="_blank" rel="noopener">GITHUB</a> ·
+      <a href="https://www.linkedin.com/in/priyanshu-gupta-0942a624a" target="_blank" rel="noopener">LINKEDIN</a> ·
+      <a href="https://leetcode.com/priyanshugupta01" target="_blank" rel="noopener">LEETCODE</a>
+    </div>
+  </footer>
+
+  <script>
+    function runLedgerSim(mode, btn) {
+      btn.parentElement.querySelectorAll('.sim-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const tps = document.getElementById('l-tps');
+      const tpsBar = document.getElementById('l-tps-bar');
+      const retries = document.getElementById('l-retries');
+      const retryBar = document.getElementById('l-retry-bar');
+      const log = document.getElementById('l-log');
+
+      if (mode === 'pessimistic') {
+        tps.textContent = '211 tx/s (9,462 ms)';
+        tpsBar.style.width = '88%';
+        retries.textContent = '0 retries (0 deadlocks)';
+        retryBar.style.width = '2%';
+        log.innerHTML = '[SQL] SELECT id, balance_minor FROM accounts WHERE id IN ($lowUuid, $highUuid) ORDER BY id ASC FOR UPDATE;<br/>[TRIGGER] trg_entries_balanced (DEFERRABLE INITIALLY DEFERRED): SUM(amount_minor) == 0 ✔';
+      } else if (mode === 'serializable') {
+        tps.textContent = '29 tx/s (67,351 ms)';
+        tpsBar.style.width = '14%';
+        retries.textContent = '16,800 SQLSTATE 40001 retries';
+        retryBar.style.width = '96%';
+        log.innerHTML = '[WARN] SQLSTATE 40001 (serialization_failure) on hub account — exponential backoff + jitter retry;<br/>[INVARIANT] 2,000/2,000 transfers eventually committed · 0 negative balances ✔';
+      } else {
+        tps.textContent = '50 Concurrent Threads × 20 Rounds';
+        tpsBar.style.width = '100%';
+        retries.textContent = '1 Commit · 49 Idempotent Replays / Round';
+        retryBar.style.width = '8%';
+        log.innerHTML = '[IDEMPOTENCY] INSERT INTO idempotency_keys (client_id, key, request_hash) ON CONFLICT DO NOTHING;<br/>[RESULT] SHA-256 payload verified · HTTP 201 (winner) + HTTP 200 (replays) · HTTP 422 on mutated payload ✔';
+      }
+    }
+
+    function runIngestSim(mode, btn) {
+      btn.parentElement.querySelectorAll('.sim-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const heap = document.getElementById('i-heap');
+      const heapBar = document.getElementById('i-heap-bar');
+      const tps = document.getElementById('i-tps');
+      const tpsBar = document.getElementById('i-tps-bar');
+      const log = document.getElementById('i-log');
+
+      if (mode === 'stax') {
+        heap.textContent = '27 MB / 64 MB Peak';
+        heapBar.style.width = '42%';
+        tps.textContent = '560,028 records/sec';
+        tpsBar.style.width = '94%';
+        log.innerHTML = '[StAX] XMLStreamReader cursor streaming 3,200,000 Cube nodes (O(1) lookahead buffer).<br/>[SINK] ON CONFLICT (pk) DO UPDATE WHERE target.source_hash IS DISTINCT FROM EXCLUDED.source_hash ✔';
+      } else if (mode === 'crash') {
+        heap.textContent = '31 MB / 64 MB Peak';
+        heapBar.style.width = '48%';
+        tps.textContent = 'Converged 10,000 rows in 968 ms';
+        tpsBar.style.width = '82%';
+        log.innerHTML = '[FAULT] Injected crash after Kafka acks=all before checkpoint commit at page 3.<br/>[RESUME] ConsumerSeekAware sought partition offset -> 0 lost rows, identical MD5 checksum across 10 runs ✔';
+      } else {
+        heap.textContent = '34 MB / 64 MB Peak';
+        heapBar.style.width = '53%';
+        tps.textContent = '18,450 upserts/sec (batch=5,000)';
+        tpsBar.style.width = '90%';
+        log.innerHTML = '[JDBC] reWriteBatchedInserts=true · scaled from 7,012 rec/s (batch=100) to 18,450 rec/s (batch=5,000).<br/>[COMPACT] In-batch PK compaction prevented SQLSTATE 21000 duplicate row affect error ✔';
+      }
+    }
+  </script>
+</body>
+</html>
